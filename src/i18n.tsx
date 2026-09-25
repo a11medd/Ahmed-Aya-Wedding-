@@ -106,13 +106,13 @@ const en: Dict = {
 };
 
 const ar: Dict = {
-  docTitle: 'أحمد و آية · حفل الزفاف · ٢٧.٠١.٢٠٢٧',
+  docTitle: 'أحمد & آية · حفل الزفاف · ٢٧.٠١.٢٠٢٧',
   toggle: { label: 'English', aria: 'View the invitation in English' },
   invited: 'يسعدنا دعوتكم',
   cta: 'اضغط لفتح الدعوة',
   soundHint: 'لتجربة أجمل، يُرجى تشغيل الصوت',
-  openAria: 'افتح دعوة زفاف أحمد و آية',
-  hero: { kicker: 'حفل زفاف', groom: 'أحمد', bride: 'آية', amp: 'و', namesAria: 'أحمد و آية', date: '٢٧ يناير ٢٠٢٧' },
+  openAria: 'افتح دعوة زفاف أحمد & آية',
+  hero: { kicker: 'حفل زفاف', groom: 'أحمد', bride: 'آية', amp: '&', namesAria: 'أحمد & آية', date: '٢٧ يناير ٢٠٢٧' },
   invite: {
     title: 'دعوة زفاف',
     salutation: 'أهلنا وأصدقاءنا الأعزاء',
@@ -177,7 +177,7 @@ const ar: Dict = {
     text: 'حضوركم هو أغلى ما في قصة حبنا',
     rsvp: 'تأكيد الحضور',
     rsvpNote: 'يُرجى تأكيد حضوركم عبر واتساب',
-    whatsappMessage: 'مرحبًا، أودّ تأكيد حضوري لحفل زفاف أحمد و آية.',
+    whatsappMessage: 'مرحبًا، أودّ تأكيد حضوري لحفل زفاف أحمد & آية.',
   },
   footer: { date: 'الأربعاء · ٢٧ يناير ٢٠٢٧', credits: 'صُمم بحب بواسطة أحمد أسامة ♥' },
   music: { play: 'تشغيل الموسيقى', mute: 'كتم الموسيقى' },
