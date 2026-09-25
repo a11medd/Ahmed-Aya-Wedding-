@@ -2451,3 +2451,4 @@ html[lang="ar"] .footer-venue {
   font-size: 20px;
 }
 @media (max-width: 768px) { .guidelines { flex-direction: column; } .guidelines .reveal + .reveal { margin-top: 16px; } }
+@media (max-width: 768px) { .guidelines { flex-direction: column !important; align-items: stretch !important; gap: 24px !important; } .guidelines .reveal { flex: auto !important; width: 100% !important; margin: 0 !important; } }
