@@ -2450,3 +2450,4 @@ html[lang="ar"] .footer-date {
 html[lang="ar"] .footer-venue {
   font-size: 20px;
 }
+@media (max-width: 768px) { .guidelines { flex-direction: column; } .guidelines .reveal + .reveal { margin-top: 16px; } }
