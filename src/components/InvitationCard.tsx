@@ -71,7 +71,9 @@ export function InvitationCard({ preview = false }: { preview?: boolean }) {
 
             <Divider className="card-divider card-divider--end" />
             <p className="card-monogram" aria-hidden="true" dir="ltr">
-              A<i>&amp;</i>A
+              <span>A</span>
+              <i>&amp;</i>
+              <span>A</span>
             </p>
           </div>
         </div>

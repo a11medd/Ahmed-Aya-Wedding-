@@ -7,8 +7,6 @@ import { InvitationCard } from './InvitationCard';
 import { LaurelSpray } from './Laurel';
 import { Flourish, SpeakerIcon } from './Ornaments';
 import { WaxSeal } from './WaxSeal';
-import handTop from '../assets/gloved-hand-top.png';
-import handBottom from '../assets/gloved-hand-bottom.png';
 
 export type Stage = 'sealed' | 'opening' | 'rising' | 'handoff' | 'settle' | 'done';
 
@@ -213,12 +211,6 @@ export function EnvelopeScene({ stage, geo, ready, onOpen, targetRef }: ScenePro
                   <WaxSeal />
                 </div>
               </div>
-            </div>
-
-            {/* White satin gloved hands holding the envelope */}
-            <div className="env-hands" aria-hidden="true">
-              <img src={handTop} alt="" className="env-hand env-hand--top" />
-              <img src={handBottom} alt="" className="env-hand env-hand--bottom" />
             </div>
 
             <div className="env-sheen" aria-hidden="true">

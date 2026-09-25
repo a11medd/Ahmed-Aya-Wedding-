@@ -196,7 +196,7 @@ function initialLang(): Lang {
   } catch {
     /* private mode */
   }
-  return 'en';
+  return 'ar';
 }
 
 interface LangValue {

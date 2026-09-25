@@ -39,7 +39,8 @@ export function readViewport() {
 
 export function computeGeo({ vw, vh }: { vw: number; vh: number }): Geo {
   // Horizontal rectangular envelope (ratio ~1.58) matching the reference photo
-  const W = Math.round(Math.max(280, Math.min(vw * 0.92, 480, vh * 0.55 * 1.55)));
+  const maxW = Math.min(Math.max(240, vw - 24), 480);
+  const W = Math.round(Math.min(maxW, Math.max(240, Math.min(vw * 0.92, vh * 0.55 * 1.55))));
   const H = Math.round(W * 0.62);
   const flapH = Math.round(H * 0.56);
   const vTip = Math.round(H * 0.50);
@@ -48,7 +49,7 @@ export function computeGeo({ vw, vh }: { vw: number; vh: number }): Geo {
   const sealTop = sealCY - Math.round(seal / 2);
   const ctaTop = Math.round(sealCY + seal / 2 + H * 0.08);
 
-  const cardW = Math.round(Math.min(vw - 24, 520));
+  const cardW = Math.round(Math.max(240, Math.min(vw - 20, 520)));
   const innerW = Math.round(W * 0.92);
   const k = innerW / cardW;
   const cardLeft = Math.round((W - innerW) / 2);

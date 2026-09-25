@@ -545,47 +545,9 @@ body {
   opacity: 0;
 }
 
-/* White satin gloved hands holding the horizontal envelope */
+/* Hands on envelope disabled */
 .env-hands {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 10;
-}
-.env-hand {
-  position: absolute;
-  pointer-events: none;
-  filter: drop-shadow(0 14px 24px rgba(18, 1, 1, 0.7)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
-  transition:
-    transform 0.95s var(--ease-lux),
-    opacity 0.75s ease;
-  will-change: transform, opacity;
-}
-.env-hand--top {
-  left: -28%;
-  top: -15%;
-  width: 62%;
-  height: auto;
-  transform-origin: 0% 40%;
-}
-.env-hand--bottom {
-  right: -30%;
-  bottom: -18%;
-  width: 66%;
-  height: auto;
-  transform-origin: 100% 60%;
-}
-.scene:not(.stage-sealed) .env-hand--top {
-  transform: translate3d(-130px, -45px, 0) rotate(-6deg);
-  opacity: 0;
-}
-.scene:not(.stage-sealed) .env-hand--bottom {
-  transform: translate3d(130px, 45px, 0) rotate(6deg);
-  opacity: 0;
-}
-.stage-handoff .env-hands,
-.stage-settle .env-hands {
-  display: none;
+  display: none !important;
 }
 
 /* Eyebrow text above envelope — "You are cordially invited" */
@@ -1018,17 +980,17 @@ html[lang="ar"] .scene-eyebrow {
   display: flex;
   align-items: baseline;
   justify-content: center;
-  gap: 0;
+  gap: clamp(8px, 2.5vw, 16px);
   flex-wrap: nowrap;
 }
 .hero-names--inline .hero-name {
-  display: inline;
+  display: inline-block;
   font-size: clamp(24px, 7.6vw, 38px);
 }
 .hero-names--inline .hero-amp {
-  display: inline;
+  display: inline-block;
   font-size: clamp(20px, 6vw, 30px);
-  margin: 0 6px;
+  margin: 0 clamp(4px, 1.5vw, 8px);
 }
 .hero-name {
   display: block;
@@ -2250,7 +2212,7 @@ html.is-lang-switching .lang-fade {
 }
 
 /* ════════════════════════════════════════════════════════════════
-   Arabic — premium typography & RTL refinements
+   Arabic — premium typography, spacious lettering & RTL refinements
    El Messiri (titles/labels) · Amiri (body) · Aref Ruqaa (calligraphy)
    ════════════════════════════════════════════════════════════════ */
 html[lang="ar"] {
@@ -2259,11 +2221,17 @@ html[lang="ar"] {
   --font-garamond: "Amiri", "Noto Naskh Arabic", serif;
   --font-script: "Aref Ruqaa", "Amiri", serif;
 }
-/* Arabic letters must stay joined: no tracking, no faux italics */
+
+/* Arabic cursive letters must stay joined: no letter-spacing tracking, natural word-spacing */
+html[lang="ar"] body {
+  word-spacing: 0.12em;
+}
 html[lang="ar"] body :where(p, span, h1, h2, h3, a, li, small, i, em, button) {
   letter-spacing: 0 !important;
   font-style: normal !important;
 }
+
+/* Clear English tracking padding that creates asymmetric gaps in RTL */
 html[lang="ar"]
   :is(
     .eyebrow-text,
@@ -2281,174 +2249,480 @@ html[lang="ar"]
     .footer-names
   ) {
   padding-left: 0;
+  padding-right: 0;
 }
 
-/* envelope */
+/* Kickers & labels in Arabic: generous breathing room between words & letters */
+html[lang="ar"]
+  :is(
+    .eyebrow-text,
+    .section-kicker,
+    .hero-kicker,
+    .tile-label,
+    .guideline-title,
+    .btn-foil__label,
+    .calendar-month
+  ) {
+  word-spacing: 0.22em;
+}
+
+/* Envelope text in Arabic */
 html[lang="ar"] .env-cta__text {
-  font-size: calc(var(--w) * 0.085);
+  font-size: clamp(17px, calc(var(--w) * 0.08), 24px);
   line-height: 1.5;
   font-weight: 700;
+  word-spacing: 0.16em;
 }
 html[lang="ar"] .eyebrow-lux {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: clamp(12px, 3.2vw, 15px);
+  font-weight: 600;
+  gap: 16px;
 }
 html[lang="ar"] .scene-hint {
-  font-size: 15px;
+  font-size: clamp(12px, 3.2vw, 15px);
+  word-spacing: 0.1em;
 }
 
-/* hero */
+/* Hero Couple Names ("أحمد و آية") — Spacious, regal, perfectly spaced */
 html[lang="ar"] .hero-kicker {
-  font-size: 15px;
+  font-size: clamp(12px, 3.2vw, 15px);
   font-weight: 500;
-  line-height: 1.5;
+  line-height: 1.6;
+  word-spacing: 0.2em;
+  margin-bottom: 4px;
 }
 html[lang="ar"] .hero-names {
-  margin-top: 2px;
+  margin-top: 6px;
 }
-html[lang="ar"] .hero-name {
-  font-size: clamp(40px, 12vw, 58px);
+html[lang="ar"] .hero-names--inline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(14px, 4vw, 24px);
+  flex-wrap: nowrap;
+}
+html[lang="ar"] .hero-names--inline .hero-name {
+  display: inline-block;
+  font-size: clamp(26px, 7.5vw, 42px);
   font-weight: 700;
-  line-height: 1.35;
+  line-height: 1.3;
+  padding: 0 4px;
+  word-spacing: 0.15em;
+  white-space: nowrap;
 }
-html[lang="ar"] .hero-amp {
+html[lang="ar"] .hero-names--inline .hero-amp {
+  display: inline-block;
   font-family: "El Messiri", "Amiri", serif;
+  font-style: normal;
   font-weight: 500;
-  font-size: clamp(26px, 7.4vw, 34px);
-  line-height: 1.1;
-  margin: -0.1em 0 -0.04em;
+  font-size: clamp(22px, 6.2vw, 32px);
+  line-height: 1;
+  margin: 0 clamp(8px, 2.5vw, 16px);
+  color: #f2da96;
 }
 html[lang="ar"] .hero-date {
   font-family: "Amiri", serif;
-  font-size: 17px;
+  font-size: clamp(13px, 3.5vw, 17px);
   font-weight: 700;
+  word-spacing: 0.18em;
+  margin-top: 10px;
 }
 
-/* card */
+/* Card typography in Arabic */
 html[lang="ar"] .invite-title {
-  font-size: clamp(34px, 10vw, 46px);
+  font-size: clamp(30px, 9vw, 44px);
   font-weight: 700;
   line-height: 1.45;
+  word-spacing: 0.18em;
 }
 html[lang="ar"] .invite-salutation {
-  font-size: 18px;
+  font-size: clamp(15px, 4.2vw, 18px);
   font-weight: 600;
   color: #400707;
+  word-spacing: 0.16em;
 }
 html[lang="ar"] .phrasing {
-  font-size: clamp(19px, 5.3vw, 22px);
+  font-size: clamp(17px, 4.8vw, 21px);
   line-height: 1.9;
-  max-width: 28ch;
+  max-width: 32ch;
   color: #380505;
+  word-spacing: 0.1em;
+}
+html[lang="ar"] .card-monogram {
+  font-size: 21px;
+  letter-spacing: 0.14em;
+  word-spacing: 0.2em;
+}
+html[lang="ar"] .card-monogram i {
+  margin: 0 12px;
 }
 
-/* sections */
+/* Sections typography in Arabic */
 html[lang="ar"] .section-kicker {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: clamp(12px, 3.2vw, 15px);
+  font-weight: 600;
+  word-spacing: 0.22em;
 }
 html[lang="ar"] .section-title {
-  font-size: clamp(34px, 10vw, 46px);
+  font-size: clamp(28px, 8.5vw, 44px);
   font-weight: 700;
   line-height: 1.45;
+  word-spacing: 0.16em;
 }
 html[lang="ar"] .section-subtitle,
 html[lang="ar"] .timeline-note,
 html[lang="ar"] .calendar-caption,
 html[lang="ar"] .rsvp-note {
-  font-size: 19px;
+  font-size: clamp(15px, 4.2vw, 19px);
   line-height: 1.7;
+  word-spacing: 0.08em;
 }
 html[lang="ar"] .tile-num {
   font-family: "Amiri", serif;
   font-weight: 700;
-  font-size: clamp(30px, 9vw, 42px);
+  font-size: clamp(24px, 7.5vw, 38px);
   line-height: 1.2;
 }
 html[lang="ar"] .tile-label {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: clamp(10.5px, 3.2vw, 14px);
+  font-weight: 600;
   margin-top: 4px;
+  word-spacing: 0.14em;
 }
 html[lang="ar"] .calendar-month {
-  font-size: 22px;
+  font-size: clamp(18px, 5.2vw, 22px);
   font-weight: 700;
 }
 html[lang="ar"] .calendar-wd {
-  font-size: 11px;
+  font-size: clamp(9px, 2.7vw, 11px);
   font-weight: 600;
   padding-bottom: 6px;
+  white-space: nowrap;
 }
 html[lang="ar"] .calendar-day {
-  font-size: 19px;
+  font-size: clamp(15px, 4.4vw, 19px);
   font-weight: 700;
 }
 html[lang="ar"] .timeline-time {
   font-family: "Amiri", serif;
   font-weight: 700;
-  font-size: 50px;
+  font-size: clamp(38px, 11vw, 50px);
   line-height: 1.2;
 }
 html[lang="ar"] .timeline-time small {
   margin: 0 8px 0 0;
   font-family: "El Messiri", sans-serif;
-  font-size: 18px;
+  font-size: clamp(15px, 4.2vw, 18px);
 }
 html[lang="ar"] .timeline-title {
-  font-size: 19px;
+  font-size: clamp(16px, 4.6vw, 19px);
   font-weight: 600;
+  word-spacing: 0.12em;
 }
 html[lang="ar"] .venue-name {
-  font-size: clamp(32px, 9.4vw, 42px);
+  font-size: clamp(26px, 7.8vw, 40px);
   font-weight: 700;
   line-height: 1.4;
+  word-spacing: 0.15em;
 }
 html[lang="ar"] .venue-meta {
-  font-size: 19px;
+  font-size: clamp(16px, 4.5vw, 19px);
+  word-spacing: 0.1em;
 }
 html[lang="ar"] .venue-meta--time {
   font-family: "Amiri", serif;
-  font-size: 18px;
+  font-size: clamp(15px, 4.2vw, 18px);
   font-weight: 700;
 }
 html[lang="ar"] .guideline-title {
-  font-size: 20px;
+  font-size: clamp(16px, 4.6vw, 20px);
   font-weight: 700;
+  word-spacing: 0.16em;
 }
 html[lang="ar"] .guideline-text {
-  font-size: 19px;
+  font-size: clamp(15px, 4.2vw, 18px);
   line-height: 1.8;
+  word-spacing: 0.08em;
 }
 html[lang="ar"] .swatch-name {
-  font-size: 13px;
+  font-size: clamp(11px, 3.2vw, 13px);
   font-weight: 500;
 }
 html[lang="ar"] .btn-foil__label {
-  font-size: 17px;
+  font-size: clamp(14px, 4vw, 17px);
   font-weight: 700;
+  word-spacing: 0.18em;
 }
 html[lang="ar"] .gratitude-text {
-  font-size: 22px;
-  line-height: 1.8;
+  font-size: clamp(18px, 5.2vw, 22px);
+  line-height: 1.85;
   color: #400707;
+  word-spacing: 0.12em;
 }
+
+/* Footer Couple Names in Arabic */
 html[lang="ar"] .footer-names {
-  font-size: clamp(34px, 10vw, 44px);
+  font-size: clamp(26px, 7.8vw, 40px);
   font-weight: 700;
   line-height: 1.4;
+  word-spacing: 0.18em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 3.5vw, 22px);
 }
 html[lang="ar"] .footer-names i {
   font-family: "El Messiri", "Amiri", serif;
+  font-style: normal;
   font-weight: 500;
-  margin: 0 0.28em;
-  font-size: 0.72em;
+  margin: 0 clamp(6px, 2vw, 14px);
+  font-size: 0.85em;
+  color: #d8b465;
+  display: inline-block;
+}
+html[lang="ar"] .footer-names .foil-light {
+  padding: 0.04em 0.15em;
 }
 html[lang="ar"] .footer-date {
-  font-size: 15px;
+  font-size: clamp(12px, 3.4vw, 15px);
   font-weight: 500;
+  word-spacing: 0.16em;
 }
 html[lang="ar"] .footer-venue {
-  font-size: 20px;
+  font-size: clamp(16px, 4.6vw, 20px);
+  word-spacing: 0.1em;
 }
-@media (max-width: 768px) { .guidelines { flex-direction: column; } .guidelines .reveal + .reveal { margin-top: 16px; } }
-@media (max-width: 768px) { .guidelines { flex-direction: column !important; align-items: stretch !important; gap: 24px !important; } .guidelines .reveal { flex: auto !important; width: 100% !important; margin: 0 !important; } }
+
+/* ════════════════════════════════════════════════════════════════
+   Global Device Adaptability & Responsiveness
+   Smartphones · Foldables · Tablets · Desktops · Landscape
+   ════════════════════════════════════════════════════════════════ */
+
+/* Prevent horizontal overflow across all devices */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Page Card Responsiveness */
+.page-card {
+  margin: 22px auto 0;
+  max-width: min(calc(100vw - 20px), 520px);
+  width: 100%;
+}
+
+/* Mobile Screens (<= 480px) */
+@media (max-width: 480px) {
+  .section {
+    padding: 56px 14px 34px;
+  }
+  .card-silk {
+    padding: 8px;
+  }
+  .card-content {
+    padding: 22px 12px 30px;
+  }
+  .hero-text {
+    padding: 13% clamp(10px, 3vw, 18px) 6%;
+  }
+  .verse {
+    margin: 22px auto 0;
+    line-height: 1.95;
+    padding: 0 4px;
+  }
+  .verse-ref {
+    gap: 8px;
+    font-size: 13.5px;
+  }
+  .card-divider {
+    width: 130px;
+    margin: 18px auto 12px;
+  }
+  .card-divider--end {
+    margin: 20px auto 8px;
+  }
+  .fleuron-row {
+    width: 160px;
+  }
+
+  /* Countdown grid on mobile */
+  .countdown-stage {
+    margin: 18px auto 0;
+  }
+  .countdown-grid {
+    gap: 7px;
+  }
+  .glass-tile {
+    border-radius: 14px;
+  }
+
+  /* Calendar on mobile */
+  .calendar {
+    margin: 18px auto 0;
+    padding: 18px 10px 16px;
+  }
+  .calendar-head {
+    padding-bottom: 10px;
+    margin-bottom: 8px;
+  }
+
+  /* Venue on mobile */
+  .venue-medallion {
+    width: 50px;
+    height: 50px;
+  }
+  .venue-fleuron {
+    width: 140px;
+  }
+  .venue-btn {
+    margin-top: 18px;
+  }
+
+  /* Gratitude on mobile */
+  .gratitude-card {
+    padding: 24px 16px 20px;
+  }
+  .rsvp-btn {
+    margin-top: 22px;
+  }
+
+  /* Footer on mobile */
+  .footer {
+    margin-top: 60px;
+    padding: 28px 12px 0;
+  }
+  .footer-seal {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+/* Extra-small mobile screens (<= 360px: iPhone SE, Galaxy Fold outer, small Androids) */
+@media (max-width: 360px) {
+  .section {
+    padding: 48px 10px 28px;
+  }
+  .card-silk {
+    padding: 6px;
+  }
+  .card-content {
+    padding: 18px 8px 24px;
+  }
+  .hero-names--inline {
+    gap: 8px;
+  }
+  html[lang="ar"] .hero-names--inline {
+    gap: 10px;
+  }
+  .countdown-grid {
+    gap: 5px;
+  }
+  .glass-tile {
+    border-radius: 12px;
+  }
+  .tile-star {
+    width: 8px;
+    height: 8px;
+    margin-bottom: 3px;
+  }
+  .calendar {
+    padding: 14px 6px 12px;
+  }
+  .swatches {
+    gap: 8px;
+  }
+  .swatch {
+    width: 68px;
+  }
+  .swatch-chip {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Guidelines Layout: Stack vertically on phones & tablets <= 768px */
+@media (max-width: 768px) {
+  .guidelines {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 20px !important;
+    max-width: 440px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .guidelines .reveal {
+    flex: auto !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+  .guideline {
+    padding: 24px 16px 22px;
+  }
+}
+
+/* Responsive Floating Controls (Language & Music toggles) */
+.lang-btn {
+  top: max(10px, calc(env(safe-area-inset-top, 0px) + 10px));
+  left: max(10px, calc(env(safe-area-inset-left, 0px) + 10px));
+}
+.music {
+  top: max(10px, calc(env(safe-area-inset-top, 0px) + 10px));
+  right: max(10px, calc(env(safe-area-inset-right, 0px) + 10px));
+}
+
+@media (max-width: 420px) {
+  .lang-btn {
+    height: 38px;
+    padding: 0 12px 0 9px;
+    gap: 5px;
+  }
+  .lang-btn__icon {
+    width: 15px;
+    height: 15px;
+  }
+  .lang-btn__label {
+    font-size: 10.5px;
+  }
+  html[lang="ar"] .lang-btn__label {
+    font-size: 13px;
+  }
+  .music-btn {
+    width: 38px;
+    height: 38px;
+  }
+  .music-toast {
+    max-width: 140px;
+    font-size: 12px;
+    height: 30px;
+    padding: 0 10px 0 8px;
+  }
+}
+
+/* Short screens & Mobile landscape responsiveness */
+@media (max-height: 640px) {
+  .scene-eyebrow {
+    top: max(8px, calc(env(safe-area-inset-top, 0px) + 12px));
+  }
+  .scene-hint {
+    bottom: max(6px, calc(env(safe-area-inset-bottom, 0px) + 8px));
+  }
+}
+
+@media (orientation: landscape) and (max-height: 520px) {
+  .scene-eyebrow {
+    display: none;
+  }
+  .scene-hint {
+    bottom: 6px;
+    font-size: 12px;
+  }
+  .page {
+    padding-top: calc(env(safe-area-inset-top, 0px) + 54px);
+  }
+}
