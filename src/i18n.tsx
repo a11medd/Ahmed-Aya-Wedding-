@@ -97,7 +97,7 @@ const en: Dict = {
     aria: 'With love and gratitude',
     title: 'With Love & Gratitude',
     text: 'Your presence is the most cherished part of our love story',
-    rsvp: 'RSVP Confirmation',
+    rsvp: 'RSVP',
     rsvpNote: 'Kindly confirm your attendance via WhatsApp',
     whatsappMessage: "Hello, I would like to confirm my attendance for Ahmed & Aya's Wedding.",
   },

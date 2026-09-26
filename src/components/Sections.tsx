@@ -6,7 +6,7 @@ import { useLang } from '../i18n';
 import { mulberry32 } from '../lib/shapes';
 import { ClockIcon, DiamondMark, FleuronRow, GuidelineGlyph, NoteIcon, PinIcon, StarMark, WhatsAppIcon, InstagramIcon } from './Ornaments';
 import { Reveal } from './Reveal';
-import { WaxSeal } from './WaxSeal';
+import { WaxSeal, RsvpSeal } from './WaxSeal';
 
 /* ───────────────────────── Backdrop ───────────────────────── */
 
@@ -286,13 +286,12 @@ export function Gratitude() {
       </Reveal>
 
       <Reveal delay={180}>
-        <a className="btn-foil btn-foil--solid rsvp-btn" href={whatsappUrl(g.whatsappMessage)} target="_blank" rel="noopener noreferrer">
-          <span className="btn-foil__inner">
-            <WhatsAppIcon className="btn-foil__icon" />
-            <span className="btn-foil__label">{g.rsvp}</span>
-          </span>
-        </a>
-        <p className="rsvp-note">{g.rsvpNote}</p>
+        <div className="rsvp-seal-wrap">
+          <RsvpSeal className="rsvp-seal-btn" href={whatsappUrl(g.whatsappMessage)}>
+            <span className="rsvp-seal-label">{g.rsvp}</span>
+          </RsvpSeal>
+          <p className="rsvp-note">{g.rsvpNote}</p>
+        </div>
       </Reveal>
     </section>
   );

@@ -38,13 +38,16 @@ export function readViewport() {
 }
 
 export function computeGeo({ vw, vh }: { vw: number; vh: number }): Geo {
-  // Horizontal rectangular envelope (ratio ~1.58) matching the reference photo
-  const maxW = Math.min(Math.max(240, vw - 24), 480);
-  const W = Math.round(Math.min(maxW, Math.max(240, Math.min(vw * 0.92, vh * 0.55 * 1.55))));
-  const H = Math.round(W * 0.62);
-  const flapH = Math.round(H * 0.56);
-  const vTip = Math.round(H * 0.50);
-  const seal = Math.round(Math.min(W * 0.22, 88));
+  // Vertical portrait envelope filling the screen — matching the reference photo
+  // The envelope is tall (roughly 9:16 aspect like a phone screen)
+  const maxW = Math.min(Math.max(240, vw - 16), 420);
+  const W = Math.round(Math.min(maxW, Math.max(240, vw * 0.94)));
+  const H = Math.round(Math.min(vh * 0.88, W * 1.72));
+  // Deep Euro V-flap matching the picture
+  const flapH = Math.round(H * 0.55);
+  const vTip = Math.round(H * 0.48);
+  // Huge wax seal matching the picture proportions
+  const seal = Math.round(Math.min(W * 0.40, 150));
   const sealCY = flapH - Math.round(seal * 0.04);
   const sealTop = sealCY - Math.round(seal / 2);
   const ctaTop = Math.round(sealCY + seal / 2 + H * 0.08);
@@ -57,10 +60,10 @@ export function computeGeo({ vw, vh }: { vw: number; vh: number }): Geo {
   const visH = H * 0.96 - cardTop;
   const cardHpx = Math.round(visH / k);
   // keep the bottom of the card hidden behind the pocket while it rises
-  const rise = Math.round(Math.min(cardTop + visH - vTip - 6, H * 0.65));
+  const rise = Math.round(Math.min(cardTop + visH - vTip - 6, H * 0.50));
 
   const envTop = (vh - H) / 2;
-  const shift = Math.max(Math.round(H * 0.08), Math.round(rise - cardTop + 20 - envTop));
+  const shift = Math.max(Math.round(H * 0.06), Math.round(rise - cardTop + 20 - envTop));
   const drop = Math.round(vh * 0.95);
 
   return { W, H, flapH, vTip, seal, sealTop, ctaTop, cardW, innerW, k, cardLeft, cardTop, cardHpx, rise, shift, drop };

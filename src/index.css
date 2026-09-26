@@ -15,8 +15,8 @@
   color-scheme: dark;
   --ease-lux: cubic-bezier(0.62, 0.03, 0.3, 1);
   --ease-soft: cubic-bezier(0.22, 0.8, 0.24, 1);
-  --gold-foil-light: linear-gradient(100deg, #5c3c0a 0%, #875c1c 20%, #a87926 40%, #cfa046 50%, #8f651d 60%, #5c3c0a 80%, #4f3306 100%);
-  --gold-foil-ink: linear-gradient(100deg, #5c3c0a 0%, #875c1c 20%, #a87926 40%, #cfa046 50%, #8f651d 60%, #5c3c0a 80%, #4f3306 100%);
+  --gold-foil-light: linear-gradient(100deg, #2a0404 0%, #400707 20%, #5a0b0b 40%, #6b1212 50%, #4a0808 60%, #380505 80%, #2a0404 100%);
+  --gold-foil-ink: linear-gradient(100deg, #2a0404 0%, #400707 20%, #5a0b0b 40%, #6b1212 50%, #4a0808 60%, #380505 80%, #2a0404 100%);
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .38 0 0 0 0 .29 0 0 0 0 .16 .55 0 0 0 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -96,10 +96,10 @@ body {
   width: clamp(20px, 6vw, 36px);
   height: 1.5px;
   flex-shrink: 1;
-  background: linear-gradient(90deg, transparent, #a27b32);
+  background: linear-gradient(90deg, transparent, #400707);
 }
 .eyebrow-line:last-child {
-  background: linear-gradient(90deg, #a27b32, transparent);
+  background: linear-gradient(90deg, #400707, transparent);
 }
 
 /* ════════════════════════════════════════════════════════════════
@@ -145,7 +145,7 @@ body {
   font-style: italic;
   font-size: 14px;
   line-height: 1.3;
-  color: rgba(100, 70, 30, 0.6);
+  color: #400707;
   text-align: center;
   transition: opacity 0.5s ease;
 }
@@ -206,7 +206,7 @@ body {
 .env-shadow {
   position: absolute;
   inset: 0;
-  border-radius: 4px;
+  border-radius: 6px;
   box-shadow:
     0 42px 70px -20px rgba(18, 1, 1, 0.95),
     0 24px 38px -14px rgba(25, 2, 2, 0.9),
@@ -214,27 +214,13 @@ body {
     0 0 65px 12px rgba(212, 175, 55, 0.08);
 }
 
-/* Royal Burgundy paper (#400707) with fine herringbone diagonal texture */
 .paper-obsidian {
   background-color: #400707;
-  background-image:
-    radial-gradient(130% 90% at 50% 25%, #580a0a 0%, #400707 55%, #280303 100%),
-    repeating-linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.03) 0px,
-      rgba(255, 255, 255, 0.03) 1px,
-      transparent 1px,
-      transparent 4px
-    ),
-    repeating-linear-gradient(
-      45deg,
-      rgba(255, 255, 255, 0.02) 0px,
-      rgba(255, 255, 255, 0.02) 1px,
-      transparent 1px,
-      transparent 4px
-    );
-  background-size: 100% 100%, 100% 100%, 100% 100%;
-  background-blend-mode: normal, overlay, overlay;
+  background-image: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.15) 50%, rgba(255,255,255,0.05) 100%), var(--tex-damask), var(--grain);
+  background-size: 100% 100%, 300px auto, 150px 150px;
+  background-position: center, center, 0 0;
+  /* blend mode: the first gradient highlights, damask gives subtle texture via soft-light, grain multiplies */
+  background-blend-mode: normal, soft-light, multiply;
 }
 
 /* Luxury warm ivory & champagne gold liner (inside of the envelope + inner flap) */
@@ -258,7 +244,8 @@ body {
   inset: 0;
   z-index: 1;
   overflow: hidden;
-  border-radius: 3px;
+  border-radius: 6px;
+  transform: translateZ(-2px);
 }
 .env-back__depth {
   position: absolute;
@@ -312,6 +299,9 @@ body {
   position: absolute;
   inset: 0;
   z-index: 4;
+  border-radius: 6px;
+  overflow: hidden;
+  transform: translateZ(2px);
 }
 .pocket-paper {
   position: absolute;
@@ -356,11 +346,13 @@ body {
 }
 .flap-face {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: -6px;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-clip-path: polygon(0 0, 100% 0, 50% 100%);
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  border-radius: 6px 6px 0 0;
 }
 .flap-front {
   background-position: 50% -18px;
@@ -426,10 +418,10 @@ body {
   width: 118%;
   height: 118%;
   border-radius: 50%;
-  border: 1px solid rgba(243, 214, 140, 0.55);
+  border: 1px solid rgba(240, 234, 216, 0.55);
   box-shadow:
-    0 0 18px rgba(243, 214, 140, 0.22),
-    inset 0 0 18px rgba(243, 214, 140, 0.12);
+    0 0 18px rgba(240, 234, 216, 0.22),
+    inset 0 0 18px rgba(240, 234, 216, 0.12);
   pointer-events: none;
   opacity: 0;
   animation: halo 2.8s cubic-bezier(0.2, 0.6, 0.3, 1) 1.2s infinite;
@@ -458,7 +450,7 @@ body {
   width: 180%;
   height: 180%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 238, 190, 0.6) 0%, rgba(255, 226, 160, 0.18) 35%, rgba(255, 226, 160, 0) 62%);
+  background: radial-gradient(circle, rgba(250, 246, 238, 0.6) 0%, rgba(240, 234, 216, 0.18) 35%, rgba(240, 234, 216, 0) 62%);
   opacity: 0;
   pointer-events: none;
 }
@@ -489,7 +481,7 @@ body {
   width: 100%;
   height: 100%;
   overflow: visible;
-  filter: drop-shadow(0 6px 7px rgba(0, 0, 0, 0.62)) drop-shadow(0 2px 2px rgba(0, 0, 0, 0.55));
+  filter: drop-shadow(0 6px 7px rgba(0, 0, 0, 0.45)) drop-shadow(0 2px 2px rgba(0, 0, 0, 0.35));
 }
 .wax-seal__glint {
   position: absolute;
@@ -505,7 +497,7 @@ body {
   bottom: -25%;
   left: 0;
   width: 34%;
-  background: linear-gradient(90deg, rgba(255, 250, 230, 0), rgba(255, 250, 230, 0.5), rgba(255, 250, 230, 0));
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
   transform: translate3d(-170%, 0, 0) rotate(22deg);
   animation: glint 5.6s ease-in-out 1.6s infinite;
 }
@@ -601,25 +593,23 @@ html[lang="ar"] .scene-eyebrow {
   letter-spacing: 0.05em;
   padding-left: 0.05em;
   line-height: 1.3;
-  color: #f7e6bc;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.4);
-  animation: cta-breathe 3.4s ease-in-out infinite;
+  color: #e8d5b5;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(232, 213, 181, 0.3);
+  animation: cta-breathe 4s ease-in-out infinite;
 }
 .env-cta__flourish {
   width: calc(var(--w) * 0.34);
   height: auto;
   margin-top: 1px;
-  color: rgba(236, 214, 160, 0.78);
+  color: rgba(232, 213, 181, 0.78);
 }
 @keyframes cta-breathe {
   0%,
   100% {
-    opacity: 0.8;
-    transform: translateY(0);
+    opacity: 0.4;
   }
   50% {
     opacity: 1;
-    transform: translateY(-2px);
   }
 }
 .scene:not(.stage-sealed) .env-cta {
@@ -627,15 +617,24 @@ html[lang="ar"] .scene-eyebrow {
 }
 
 /* Depth of field while the card rises, then the envelope falls away */
-.env-back,
-.env-pocket,
-.env-pocket-shadow,
 .env-shadow {
-  transform: translate3d(0, 0, 0);
-  transition:
-    filter 1.3s ease,
-    transform 1.1s cubic-bezier(0.45, 0, 0.7, 0.35),
-    opacity 0.45s ease 0.1s;
+  transform: translate3d(0, 0, -2px);
+  transition: filter 1.3s ease, transform 1.1s cubic-bezier(0.45, 0, 0.7, 0.35), opacity 0.45s ease 0.1s;
+}
+
+.env-back {
+  transform: translate3d(0, 0, -1px);
+  transition: filter 1.3s ease, transform 1.1s cubic-bezier(0.45, 0, 0.7, 0.35), opacity 0.45s ease 0.1s;
+}
+
+.env-pocket-shadow {
+  transform: translate3d(0, 0, 1px);
+  transition: filter 1.3s ease, transform 1.1s cubic-bezier(0.45, 0, 0.7, 0.35), opacity 0.45s ease 0.1s;
+}
+
+.env-pocket {
+  transform: translate3d(0, 0, 2px);
+  transition: filter 1.3s ease, transform 1.1s cubic-bezier(0.45, 0, 0.7, 0.35), opacity 0.45s ease 0.1s;
 }
 .flap-back {
   transition:
@@ -643,30 +642,41 @@ html[lang="ar"] .scene-eyebrow {
     opacity 0.45s ease 0.1s;
 }
 .stage-rising .env-back,
-.stage-rising .env-pocket,
-.stage-rising .flap-back {
-  filter: blur(1.6px) brightness(0.72);
-}
 .stage-handoff .env-back,
-.stage-settle .env-back,
+.stage-settle .env-back {
+  filter: blur(5px) brightness(0.5);
+  transform: translate3d(0, var(--drop), -1px);
+  opacity: 0;
+}
+
+.stage-rising .env-pocket,
 .stage-handoff .env-pocket,
 .stage-settle .env-pocket {
   filter: blur(5px) brightness(0.5);
-  transform: translate3d(0, var(--drop), 0);
+  transform: translate3d(0, var(--drop), 2px);
   opacity: 0;
 }
+
+.stage-rising .env-pocket-shadow,
 .stage-handoff .env-pocket-shadow,
-.stage-settle .env-pocket-shadow,
+.stage-settle .env-pocket-shadow {
+  transform: translate3d(0, var(--drop), 1px);
+  opacity: 0;
+}
+
+.stage-rising .env-shadow,
 .stage-handoff .env-shadow,
 .stage-settle .env-shadow {
-  transform: translate3d(0, var(--drop), 0);
+  transform: translate3d(0, var(--drop), -2px);
   opacity: 0;
 }
+.stage-rising .env-flap,
 .stage-handoff .env-flap,
 .stage-settle .env-flap {
   transform: translate3d(0, var(--drop), 0) rotateX(180deg);
   transition: transform 1.1s cubic-bezier(0.45, 0, 0.7, 0.35);
 }
+.stage-rising .flap-back,
 .stage-handoff .flap-back,
 .stage-settle .flap-back {
   filter: blur(5px) brightness(0.5);
@@ -1002,13 +1012,14 @@ html[lang="ar"] .scene-eyebrow {
   letter-spacing: 0.14em;
   padding-left: 0.14em;
   text-transform: uppercase;
-  background-image: var(--gold-foil-light);
-  background-size: 220% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  animation: foil-drift 9s ease-in-out infinite alternate;
+  background-image: none;
+  background-size: auto;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 0, 0, 0.3);
+  animation: none;
 }
 .hero-amp {
   display: block;
@@ -1017,7 +1028,8 @@ html[lang="ar"] .scene-eyebrow {
   font-weight: 400;
   font-size: clamp(26px, 7.6vw, 36px);
   line-height: 1.05;
-  color: #ecd49a;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 .hero-date {
   margin-top: 14px;
@@ -1052,13 +1064,7 @@ html[lang="ar"] .scene-eyebrow {
   text-wrap: balance;
 }
 .verse span {
-  background-image: linear-gradient(180deg, #b48c3f 0%, #86621f 48%, #c39a4b 62%, #7a5719 100%);
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+  color: #400707;
 }
 .verse-ref {
   display: flex;
@@ -1068,14 +1074,14 @@ html[lang="ar"] .scene-eyebrow {
   margin-top: 4px;
   font-family: var(--font-arabic);
   font-size: 15px;
-  color: #a3813f;
+  color: #400707;
 }
 .verse-ref__sep {
   width: 6px;
   height: 6px;
   flex: none;
   transform: rotate(45deg);
-  background: linear-gradient(135deg, #e6c67c, #9c7631);
+  background: #400707;
 }
 .card-divider {
   display: block;
@@ -1087,13 +1093,7 @@ html[lang="ar"] .scene-eyebrow {
   margin: 28px auto 10px;
 }
 .foil-ink {
-  background-image: var(--gold-foil-ink);
-  background-size: 220% 100%;
-  background-position: 0% 50%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+  color: #400707;
 }
 
 /* ── Wedding Invitation ── */
@@ -1133,7 +1133,7 @@ html[lang="ar"] .scene-eyebrow {
   font-size: 19px;
   font-weight: 600;
   letter-spacing: 0.06em;
-  color: #a07c38;
+  color: #400707;
 }
 .card-monogram i {
   font-family: var(--font-garamond);
@@ -1173,7 +1173,7 @@ html[lang="ar"] .scene-eyebrow {
   font-weight: 500;
   letter-spacing: 0.44em;
   padding-left: 0.44em;
-  color: #8a6d30;
+  color: #400707;
   text-transform: uppercase;
 }
 .section-title {
@@ -1191,7 +1191,7 @@ html[lang="ar"] .scene-eyebrow {
   width: 44px;
   height: 1px;
   margin: 12px auto 0;
-  background: linear-gradient(90deg, rgba(216, 180, 101, 0), #d8b465, rgba(216, 180, 101, 0));
+  background: linear-gradient(90deg, rgba(64, 7, 7, 0), #400707, rgba(64, 7, 7, 0));
 }
 .section-subtitle {
   max-width: 28ch;
@@ -1316,7 +1316,7 @@ html[lang="ar"] .scene-eyebrow {
   width: 11px;
   height: 11px;
   margin-bottom: 6px;
-  color: #b8860b;
+  color: #400707;
 }
 .tile-num {
   position: relative;
@@ -1383,7 +1383,7 @@ html[lang="ar"] .scene-eyebrow {
   text-transform: uppercase;
 }
 .calendar-month span {
-  color: #9c7320;
+  color: #400707;
 }
 .calendar-grid {
   position: relative;
@@ -1397,7 +1397,7 @@ html[lang="ar"] .scene-eyebrow {
   font-size: 9.5px;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: #9c7320;
+  color: #400707;
   text-transform: uppercase;
 }
 .calendar-day {
@@ -1489,7 +1489,7 @@ html[lang="ar"] .scene-eyebrow {
   width: 26px;
   height: 26px;
   margin: 0 auto;
-  color: #c49938;
+  color: #400707;
   filter: drop-shadow(0 2px 5px rgba(64, 7, 7, 0.2));
 }
 .timeline-time {
@@ -1837,6 +1837,120 @@ html[lang="ar"] .scene-eyebrow {
   color: rgba(64, 7, 7, 0.6);
 }
 
+/* ── RSVP Wax Seal Button ── */
+.rsvp-seal-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+.rsvp-seal {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 130px;
+  height: 130px;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  background: none;
+  padding: 0;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.3s cubic-bezier(0.22, 0.8, 0.24, 1);
+}
+.rsvp-seal:hover {
+  transform: scale(1.05);
+}
+.rsvp-seal:active {
+  transform: scale(0.96);
+}
+.rsvp-seal:focus-visible {
+  outline: 2px solid rgba(64, 7, 7, 0.6);
+  outline-offset: 6px;
+  border-radius: 50%;
+}
+.rsvp-seal__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4)) drop-shadow(0 3px 4px rgba(0, 0, 0, 0.3));
+}
+.rsvp-seal__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #f7e6bc;
+}
+.rsvp-seal-icon {
+  width: 22px;
+  height: 22px;
+  color: #f7e6bc;
+}
+.rsvp-seal-label {
+  font-family: var(--font-cinzel);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  padding-left: 0.18em;
+  text-transform: uppercase;
+  color: #f7e6bc;
+  text-align: center;
+  max-width: 80px;
+  line-height: 1.4;
+}
+.rsvp-seal__glint {
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 3;
+}
+.rsvp-seal__glint::before {
+  content: "";
+  position: absolute;
+  top: -25%;
+  bottom: -25%;
+  left: 0;
+  width: 34%;
+  background: linear-gradient(90deg, rgba(255, 200, 200, 0), rgba(255, 200, 200, 0.35), rgba(255, 200, 200, 0));
+  transform: translate3d(-170%, 0, 0) rotate(22deg);
+  animation: glint 5.6s ease-in-out 1.6s infinite;
+}
+
+/* Arabic RSVP seal */
+html[lang="ar"] .rsvp-seal-label {
+  font-size: clamp(10px, 3vw, 12px);
+  font-weight: 700;
+  letter-spacing: 0 !important;
+  word-spacing: 0.14em;
+  max-width: 90px;
+}
+
+/* Mobile RSVP seal */
+@media (max-width: 480px) {
+  .rsvp-seal {
+    width: 120px;
+    height: 120px;
+  }
+  .rsvp-seal-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .rsvp-seal-label {
+    font-size: 8px;
+    max-width: 72px;
+  }
+}
+
 /* ── Footer — names, date & venue ── */
 .footer {
   margin: 84px auto 0;
@@ -1869,6 +1983,11 @@ html[lang="ar"] .scene-eyebrow {
   text-transform: uppercase;
 }
 .footer-names .foil-light {
+  background-image: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  color: #400707;
+  -webkit-text-fill-color: #400707;
   padding: 0.06em 0.06em;
 }
 .footer-names i {
@@ -1879,7 +1998,7 @@ html[lang="ar"] .scene-eyebrow {
   font-size: 0.9em;
   letter-spacing: 0;
   text-transform: none;
-  color: #8a6d30;
+  color: rgba(64, 7, 7, 0.7);
 }
 .footer-date {
   margin-top: 10px;
@@ -1888,7 +2007,7 @@ html[lang="ar"] .scene-eyebrow {
   font-weight: 500;
   letter-spacing: 0.26em;
   padding-left: 0.26em;
-  color: #8a6d30;
+  color: #400707;
   text-transform: uppercase;
 }
 .footer-venue {
@@ -1915,7 +2034,7 @@ html[lang="ar"] .scene-eyebrow {
 .footer-credits {
   font-family: var(--font-garamond);
   font-size: 16px;
-  color: #8a6d30;
+  color: #400707;
 }
 .footer-social {
   display: flex;
@@ -1931,14 +2050,14 @@ html[lang="ar"] .scene-eyebrow {
   height: 38px;
   border-radius: 50%;
   border: 1px solid rgba(216, 180, 101, 0.4);
-  color: #8a6d30;
+  color: #400707;
   text-decoration: none;
   transition: all 0.3s ease;
 }
 .footer-social a:hover {
   background-color: rgba(216, 180, 101, 0.15);
   color: #400707;
-  border-color: #8a6d30;
+  border-color: #400707;
 }
 .footer-social__icon {
   width: 20px;
@@ -1989,7 +2108,7 @@ html[lang="ar"] .scene-eyebrow {
   height: 44px;
   border-radius: 50%;
   cursor: pointer;
-  background: linear-gradient(145deg, rgba(40, 34, 24, 0.55), rgba(10, 9, 7, 0.6));
+  background: rgba(64, 7, 7, 0.8);
   border: 1px solid rgba(233, 205, 140, 0.45);
   box-shadow:
     0 10px 26px rgba(0, 0, 0, 0.45),
@@ -2066,7 +2185,7 @@ html[lang="ar"] .scene-eyebrow {
   font-weight: 600;
   color: #f1e3bd;
   white-space: nowrap;
-  background: rgba(20, 18, 14, 0.42);
+  background: rgba(64, 7, 7, 0.7);
   border: 1px solid rgba(233, 205, 140, 0.25);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
@@ -2087,7 +2206,7 @@ html[lang="ar"] .scene-eyebrow {
 .music-toast__icon {
   width: 13px;
   height: 13px;
-  color: #d9b86b;
+  color: #400707;
 }
 
 /* ════════════════════════════════════════════════════════════════
@@ -2143,7 +2262,7 @@ html[lang="ar"] .scene-eyebrow {
   cursor: pointer;
   direction: ltr;
   color: #f1e3bd;
-  background: linear-gradient(145deg, rgba(40, 34, 24, 0.55), rgba(10, 9, 7, 0.6));
+  background: rgba(64, 7, 7, 0.8);
   border: 1px solid rgba(233, 205, 140, 0.45);
   box-shadow:
     0 10px 26px rgba(0, 0, 0, 0.45),
@@ -2181,7 +2300,7 @@ html[lang="ar"] .scene-eyebrow {
   width: 17px;
   height: 17px;
   flex: none;
-  color: #d9b86b;
+  color: #f1e3bd;
 }
 .lang-btn__label {
   font-family: "Cinzel", serif;
@@ -2344,6 +2463,12 @@ html[lang="ar"] .hero-names--inline .hero-name {
   padding: 0 2px;
   word-spacing: 0;
   white-space: nowrap;
+  background-image: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 0, 0, 0.3);
 }
 html[lang="ar"] .hero-names--inline .hero-amp {
   display: inline-flex;
@@ -2355,8 +2480,8 @@ html[lang="ar"] .hero-names--inline .hero-amp {
   font-size: clamp(20px, 5.8vw, 28px);
   line-height: 1;
   margin: 0 clamp(1px, 0.4vw, 4px);
-  color: #f6e2a8;
-  text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
   transform: translateY(-1px);
 }
 html[lang="ar"] .hero-date {
@@ -2809,3 +2934,5 @@ html, body {
     padding-top: calc(env(safe-area-inset-top, 0px) + 54px);
   }
 }
+ 
+ 
