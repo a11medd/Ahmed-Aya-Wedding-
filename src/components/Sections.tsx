@@ -345,11 +345,12 @@ export function Footer() {
 
 /* ───────────────────────── Language toggle ───────────────────────── */
 
-export function LangToggle() {
+export function LangToggle({ visible = true }: { visible?: boolean }) {
+  if (!visible) return null;
   const { t, lang, toggle } = useLang();
   const target = lang === 'en' ? 'ar' : 'en';
   return (
-    <button type="button" className="lang-btn" onClick={toggle} aria-label={t.toggle.aria} lang={target}>
+    <button type="button" className={`lang-btn${visible ? ' is-visible' : ''}`} onClick={toggle} aria-label={t.toggle.aria} lang={target}>
       <svg className="lang-btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" aria-hidden="true">
         <circle cx="12" cy="12" r="8.8" />
         <path d="M3.4 12h17.2M12 3.2c2.4 2.4 3.6 5.4 3.6 8.8s-1.2 6.4-3.6 8.8M12 3.2C9.6 5.6 8.4 8.6 8.4 12s1.2 6.4 3.6 8.8" />
@@ -362,6 +363,7 @@ export function LangToggle() {
 /* ───────────────────────── Music toggle ───────────────────────── */
 
 export function MusicToggle({ status, visible, onToggle }: { status: MusicStatus; visible: boolean; onToggle: () => void }) {
+  if (!visible) return null;
   const { t } = useLang();
   const playing = status === 'playing';
   const [toast, setToast] = useState(false);
