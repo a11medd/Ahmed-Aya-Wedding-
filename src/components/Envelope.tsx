@@ -1,11 +1,9 @@
 import { useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type RefObject } from 'react';
 import type { Geo } from '../lib/geometry';
-import { insetTrianglePoints } from '../lib/geometry';
 import { useSafeId } from '../lib/shapes';
 import { useLang } from '../i18n';
 import { InvitationCard } from './InvitationCard';
-import { LaurelSpray } from './Laurel';
-import { Flourish, SpeakerIcon } from './Ornaments';
+import { Flourish } from './Ornaments';
 import { WaxSeal } from './WaxSeal';
 
 export type Stage = 'sealed' | 'opening' | 'rising' | 'handoff' | 'settle' | 'done';
@@ -98,7 +96,7 @@ export function EnvelopeScene({ stage, geo, ready, onOpen, targetRef }: ScenePro
   const { t } = useLang();
   const envRef = useRef<HTMLDivElement>(null);
   const [handoff, setHandoff] = useState<{ x: number; y: number } | null>(null);
-  const { W, H, flapH, vTip, seal, sealTop, ctaTop, cardW, innerW, k, cardLeft, cardTop, cardHpx, rise, shift, drop } = geo;
+  const { W, H, flapH, vTip, seal, sealTop, ctaTop, cardW, innerW, k, cardLeft, cardTop, rise, shift, drop } = geo;
 
   // Measure where the real card sits on the page so the preview can glide onto it.
   useLayoutEffect(() => {
@@ -129,14 +127,9 @@ export function EnvelopeScene({ stage, geo, ready, onOpen, targetRef }: ScenePro
     '--drop': `${drop}px`,
   } as CSSProperties;
 
-  const pocketClip = `polygon(0px 0px, ${W / 2}px ${vTip}px, ${W}px 0px, ${W}px ${H}px, 0px ${H}px)`;
   const maskId = useSafeId('mask');
   const pocketMask = `url(#${maskId}-pocket)`;
   const flapMask = `url(#${maskId}-flap)`;
-
-  const Lw = W * 0.8;
-  const Lh = (Lw * 135) / 220;
-  const laurelStyle: CSSProperties = { width: Lw, height: Lh, left: (W - Lw) / 2, top: sealTop + seal / 2 - (Lh * 130) / 135 };
 
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -250,11 +243,6 @@ export function EnvelopeScene({ stage, geo, ready, onOpen, targetRef }: ScenePro
           </div>
         </div>
       </div>
-
-      <p className="scene-hint lang-fade">
-        <SpeakerIcon className="scene-hint__icon" />
-        <span>{t.soundHint}</span>
-      </p>
     </div>
   );
 }

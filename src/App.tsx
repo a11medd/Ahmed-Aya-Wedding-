@@ -109,7 +109,7 @@ export default function App() {
       {stage !== 'done' && <EnvelopeScene stage={stage} geo={geo} ready={ready} onOpen={open} targetRef={pageCardRef} />}
 
       <MusicToggle status={music.status} visible={stage !== 'sealed'} onToggle={music.toggle} />
-      <LangToggle />
+      <LangToggle visible={stage !== 'sealed'} />
     </>
   );
 }

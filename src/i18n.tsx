@@ -22,7 +22,7 @@ export interface Dict {
   venue: { aria: string; kicker: string; title: string; name: string; date: string; time: string; button: string };
   guidelines: { aria: string; kicker: string; title: string; subtitle: string; items: Item[]; colors: string[]; colorsAria: string };
   gratitude: { aria: string; title: string; text: string; rsvp: string; rsvpNote: string; whatsappMessage: string };
-  footer: { date: string };
+  footer: { date: string; credits?: string };
   music: { play: string; mute: string };
 }
 

@@ -1,4 +1,3 @@
-import { useSafeId } from '../lib/shapes';
 import './HeroReveal.css';
 
 export function HeroReveal({ stage }: { stage: string }) {
