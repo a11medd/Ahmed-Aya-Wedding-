@@ -56,13 +56,13 @@ export function LaurelSpray({ className, style, angle = 26, len = 106 }: { class
     <svg className={className} style={style} viewBox="-110 -130 220 135" aria-hidden="true">
       <defs>
         <linearGradient id={`${id}-g`} gradientUnits="userSpaceOnUse" x1="-95" y1="-125" x2="95" y2="0">
-          <stop offset="0" stopColor="#8d6a2b" />
-          <stop offset="0.18" stopColor="#f3dc98" />
-          <stop offset="0.36" stopColor="#b88e3f" />
-          <stop offset="0.52" stopColor="#fff1c6" />
-          <stop offset="0.7" stopColor="#a67c33" />
-          <stop offset="0.86" stopColor="#ecd08b" />
-          <stop offset="1" stopColor="#8a6628" />
+          <stop offset="0" stopColor="#2a0404" />
+          <stop offset="0.18" stopColor="#580a0a" />
+          <stop offset="0.36" stopColor="#400707" />
+          <stop offset="0.52" stopColor="#6b1212" />
+          <stop offset="0.7" stopColor="#4a0808" />
+          <stop offset="0.86" stopColor="#580a0a" />
+          <stop offset="1" stopColor="#380505" />
         </linearGradient>
         <mask id={`${id}-m`} maskUnits="userSpaceOnUse" x="-110" y="-130" width="220" height="135">
           <g transform={`rotate(${-angle})`}>{shapes}</g>
