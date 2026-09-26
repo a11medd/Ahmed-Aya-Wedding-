@@ -6,10 +6,10 @@ import { useLang } from './i18n';
 import { useMusic } from './hooks/useMusic';
 import { computeGeo, readViewport } from './lib/geometry';
 
-/** Unboxing choreography: stage → next stage after N ms */
+/** Unboxing choreography: relaxed, elegant timing */
 const NEXT: Partial<Record<Stage, Stage>> = { opening: 'rising', rising: 'handoff', handoff: 'settle', settle: 'done' };
-const DURATION: Partial<Record<Stage, number>> = { opening: 1500, rising: 1550, handoff: 1250, settle: 520 };
-const DURATION_REDUCED: Partial<Record<Stage, number>> = { opening: 250, rising: 250, handoff: 700, settle: 400 };
+const DURATION: Partial<Record<Stage, number>> = { opening: 2200, rising: 1200, handoff: 900, settle: 450 };
+const DURATION_REDUCED: Partial<Record<Stage, number>> = { opening: 350, rising: 350, handoff: 600, settle: 350 };
 
 export default function App() {
   const [stage, setStage] = useState<Stage>('sealed');
@@ -76,15 +76,13 @@ export default function App() {
     }
   }, [music]);
 
-  const pageMounted = stage !== 'sealed';
   const pageVisible = stage === 'handoff' || stage === 'settle' || stage === 'done';
 
   return (
     <>
       <Backdrop />
 
-      {pageMounted && (
-        <main className={`page${pageVisible ? ' is-visible' : ''}`} aria-hidden={!pageVisible}>
+      <main className={`page${pageVisible ? ' is-visible' : ''}`} aria-hidden={!pageVisible}>
           <p className="eyebrow-lux lang-fade">
             <span className="eyebrow-line" />
             <span className="eyebrow-text">{t.invited}</span>
@@ -104,8 +102,6 @@ export default function App() {
           <NamesDateVenue />
           <Footer />
         </main>
-      )}
-
       {stage !== 'done' && <EnvelopeScene stage={stage} geo={geo} ready={ready} onOpen={open} targetRef={pageCardRef} />}
 
       <MusicToggle status={music.status} visible={stage !== 'sealed'} onToggle={music.toggle} />
