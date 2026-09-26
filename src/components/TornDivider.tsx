@@ -10,7 +10,7 @@ interface TornDividerProps {
  * Generates an organic, hyper-realistic hand-torn paper edge path (deckled edge).
  * Combines gentle macro draping, medium tear angles, and micro-jagged paper fiber teeth.
  */
-function generateTornPaths(seedNumber: number, width = 1200, height = 48) {
+function generateTornPaths(seedNumber: number, width = 1200, height = 64) {
   const rnd = mulberry32(seedNumber);
   const numSteps = 160;
   const dx = width / numSteps;
@@ -43,14 +43,14 @@ function generateTornPaths(seedNumber: number, width = 1200, height = 48) {
     // Extra little fiber tuft every few points
     const tuft = rnd() > 0.85 ? (rnd() - 0.4) * 2.5 : 0;
 
-    const baseY = 24 + macro + medium + micro + tuft;
-    // Keep baseline safely within [10, 36]
-    const clampedY = Math.max(10, Math.min(36, baseY));
+    const baseY = 20 + macro + medium + micro + tuft;
+    // Keep baseline safely within [10, 30]
+    const clampedY = Math.max(10, Math.min(30, baseY));
 
     points.push([Number(x.toFixed(1)), Number(clampedY.toFixed(1))]);
 
     // Fiber fringe (exposed cotton pulp layer, sits 1.5 - 2.8px slightly higher and more ragged)
-    const fiberY = Math.max(7, clampedY - 1.4 - rnd() * 1.8);
+    const fiberY = Math.max(6, clampedY - 1.6 - rnd() * 2.0);
     fiberPoints.push([Number(x.toFixed(1)), Number(fiberY.toFixed(1))]);
   }
 
@@ -88,14 +88,14 @@ export function TornDivider({ variant = 1, className = '' }: TornDividerProps) {
   const gradId = useSafeId(`torn-fiber-${variant}`);
   const seed = SEEDS[variant] ?? SEEDS[1];
   const { mainPath, fiberPath, rimLine } = useMemo(
-    () => generateTornPaths(seed, 1200, 48),
+    () => generateTornPaths(seed, 1200, 64),
     [seed]
   );
 
   return (
     <div className={`torn-divider ${className}`} aria-hidden="true">
       <svg
-        viewBox="0 0 1200 48"
+        viewBox="0 0 1200 64"
         preserveAspectRatio="none"
         xmlns="http://www.w3.org/2000/svg"
       >

@@ -1171,13 +1171,16 @@ html[lang="ar"] .scene-eyebrow {
 /* ── Torn Paper Edge Divider (Deckle edge) ── */
 .torn-divider {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: clamp(28px, 5.2vw, 44px);
-  transform: translateY(-98%);
+  top: calc(-1 * clamp(24px, 3.6vw, 36px));
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: clamp(48px, 6.8vw, 68px);
   pointer-events: none;
-  z-index: 4;
+  z-index: 5;
   overflow: visible;
   line-height: 0;
 }
@@ -1198,7 +1201,7 @@ html[lang="ar"] .scene-eyebrow {
 .torn-divider__rim {
   opacity: 0.7;
 }
-.section > * {
+.section > *:not(.torn-divider) {
   max-width: 424px;
   margin-left: auto;
   margin-right: auto;
