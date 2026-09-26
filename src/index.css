@@ -707,7 +707,7 @@ html[lang="ar"] .scene-eyebrow {
   opacity: 1;
 }
 .page-card {
-  margin: 22px auto 0;
+  margin: 22px auto 48px;
 }
 
 /* ════════════════════════════════════════════════════════════════
@@ -1156,14 +1156,47 @@ html[lang="ar"] .scene-eyebrow {
   position: relative;
   width: 100%;
   margin: 0;
-  padding: 76px 18px 40px;
+  padding: 80px 18px 44px;
   text-align: center;
 }
 .section:nth-of-type(odd) {
-  background-color: #dcc8a3;
+  --section-bg: #dcc8a3;
+  background-color: var(--section-bg);
 }
 .section:nth-of-type(even) {
-  background-color: #e6d7b9;
+  --section-bg: #e6d7b9;
+  background-color: var(--section-bg);
+}
+
+/* ── Torn Paper Edge Divider (Deckle edge) ── */
+.torn-divider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(28px, 5.2vw, 44px);
+  transform: translateY(-98%);
+  pointer-events: none;
+  z-index: 4;
+  overflow: visible;
+  line-height: 0;
+}
+.torn-divider svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  /* Dual layered soft shadow casting on the section above */
+  filter: drop-shadow(0 -4px 6px rgba(45, 15, 5, 0.14)) drop-shadow(0 -1.5px 2px rgba(45, 15, 5, 0.16));
+}
+.torn-divider__main {
+  fill: var(--section-bg, #dcc8a3);
+}
+.torn-divider__fiber {
+  opacity: 0.9;
+}
+.torn-divider__rim {
+  opacity: 0.7;
 }
 .section > * {
   max-width: 424px;
@@ -1957,22 +1990,12 @@ html[lang="ar"] .rsvp-seal-label {
   }
 }
 
-/* ── Footer — names, date & venue ── */
+/* ── Footer ── */
 .footer {
-  margin: 84px auto 0;
-  padding: 36px 16px 0;
+  margin: 0;
+  padding: 64px 16px 40px;
   text-align: center;
   position: relative;
-}
-.footer::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: min(280px, 70%);
-  height: 1px;
-  transform: translateX(-50%);
-  background: linear-gradient(90deg, rgba(201, 164, 90, 0), rgba(201, 164, 90, 0.8), rgba(201, 164, 90, 0));
 }
 .footer-seal {
   width: 74px;

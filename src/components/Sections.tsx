@@ -7,6 +7,7 @@ import { mulberry32 } from '../lib/shapes';
 import { ClockIcon, DiamondMark, FleuronRow, GuidelineGlyph, NoteIcon, PinIcon, StarMark, WhatsAppIcon, InstagramIcon } from './Ornaments';
 import { Reveal } from './Reveal';
 import { WaxSeal, RsvpSeal } from './WaxSeal';
+import { TornDivider } from './TornDivider';
 
 /* ───────────────────────── Backdrop ───────────────────────── */
 
@@ -82,6 +83,7 @@ export function Countdown() {
 
   return (
     <section className="section lang-fade" aria-label={c.aria}>
+      <TornDivider variant={1} />
       <SectionHeading kicker={c.kicker} title={c.title} subtitle={c.subtitle} />
 
       <Reveal delay={120}>
@@ -127,6 +129,7 @@ export function SaveTheDate() {
 
   return (
     <section className="section lang-fade" aria-label={c.aria}>
+      <TornDivider variant={2} />
       <SectionHeading title={c.title} ornament={<FleuronRow center="star" className="fleuron-row fleuron-row--tight" />} />
 
       <Reveal delay={120}>
@@ -173,6 +176,7 @@ export function Schedule() {
   const s = t.schedule;
   return (
     <section className="section lang-fade" aria-label={s.aria}>
+      <TornDivider variant={3} />
       <SectionHeading kicker={s.kicker} title={s.title} />
 
       <div className="timeline">
@@ -201,6 +205,7 @@ export function Venue() {
   const v = t.venue;
   return (
     <section className="section lang-fade" aria-label={v.aria}>
+      <TornDivider variant={1} />
       <SectionHeading kicker={v.kicker} title={v.title} />
 
       <Reveal delay={120}>
@@ -241,6 +246,7 @@ export function Guidelines() {
   const g = t.guidelines;
   return (
     <section className="section lang-fade" aria-label={g.aria}>
+      <TornDivider variant={2} />
       <SectionHeading kicker={g.kicker} title={g.title} subtitle={g.subtitle} />
 
       <div className="guidelines">
@@ -277,6 +283,7 @@ export function Gratitude() {
   const g = t.gratitude;
   return (
     <section className="section gratitude lang-fade" aria-label={g.aria}>
+      <TornDivider variant={3} />
       <SectionHeading title={g.title} />
       <Reveal delay={100}>
         <div className="glass-panel gratitude-card">
@@ -303,6 +310,7 @@ export function NamesDateVenue() {
   const { t } = useLang();
   return (
     <section className="section footer-info lang-fade">
+      <TornDivider variant={1} />
       <Reveal>
         <div className="footer-seal">
           <WaxSeal glint={false} />
@@ -326,6 +334,7 @@ export function Footer() {
   const { t } = useLang();
   return (
     <section className="section footer lang-fade">
+      <TornDivider variant={2} />
       <Reveal>
         <div className="footer-credits-section">
           <p className="footer-credits">{t.footer.credits}</p>
