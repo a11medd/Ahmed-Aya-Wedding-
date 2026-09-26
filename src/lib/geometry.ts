@@ -43,28 +43,27 @@ export function computeGeo({ vw, vh }: { vw: number; vh: number }): Geo {
   const W = isMobile ? vw : Math.round(Math.min(420, vw * 0.94));
   const H = isMobile ? vh : Math.round(Math.min(vh * 0.88, W * 1.72));
 
-  // Deep Euro V-flap meeting gracefully near center on mobile
-  const flapH = Math.round(H * (isMobile ? 0.50 : 0.55));
-  const vTip = Math.round(H * (isMobile ? 0.44 : 0.48));
+  // Gatefold envelope meeting at exact center
+  const flapH = Math.round(H * 0.50);
+  const vTip = Math.round(H * 0.50);
 
-  // Wax seal proportions
-  const seal = Math.round(Math.min(W * (isMobile ? 0.36 : 0.40), isMobile ? 140 : 150));
-  const sealCY = flapH - Math.round(seal * 0.04);
+  // Wax seal proportions - centered on the gatefold tab
+  const seal = Math.round(Math.min(W * (isMobile ? 0.34 : 0.38), isMobile ? 135 : 145));
+  const sealCY = Math.round(H * 0.50);
   const sealTop = sealCY - Math.round(seal / 2);
-  const ctaTop = Math.round(sealCY + seal / 2 + (isMobile ? 26 : H * 0.08));
+  const ctaTop = Math.round(sealCY + seal / 2 + (isMobile ? 22 : 30));
 
   const cardW = Math.round(Math.max(240, Math.min(vw - 24, 520)));
-  const innerW = Math.round(W * 0.92);
+  const innerW = Math.round(W * 0.90);
   const k = innerW / cardW;
   const cardLeft = Math.round((W - innerW) / 2);
-  const cardTop = Math.round(H * (isMobile ? 0.03 : 0.04));
-  const visH = H * 0.96 - cardTop;
+  const cardTop = Math.round(H * (isMobile ? 0.05 : 0.06));
+  const visH = H * 0.94 - cardTop;
   const cardHpx = Math.round(visH / k);
-  // keep the bottom of the card hidden behind the pocket while it rises
-  const rise = Math.round(Math.min(cardTop + visH - vTip - 6, H * (isMobile ? 0.42 : 0.50)));
+  const rise = Math.round(H * (isMobile ? 0.46 : 0.50));
 
   const envTop = (vh - H) / 2;
-  const shift = Math.max(Math.round(H * 0.06), Math.round(rise - cardTop + 16 - envTop));
+  const shift = Math.max(Math.round(H * 0.05), Math.round(rise - cardTop + 16 - envTop));
   const drop = Math.round(vh * 0.95);
 
   return { W, H, flapH, vTip, seal, sealTop, ctaTop, cardW, innerW, k, cardLeft, cardTop, cardHpx, rise, shift, drop };
