@@ -12,7 +12,7 @@ import portrait from '../assets/couple-portrait.jpg';
  */
 export function HeroVideo({ preview = false }: { preview?: boolean }) {
   if (HERO_VIDEO.url && !preview) return <CustomFilm url={HERO_VIDEO.url} />;
-  return <CinematicPortrait still={preview} />;
+  return <CinematicPortrait still={false} />;
 }
 
 function CinematicPortrait({ still }: { still: boolean }) {

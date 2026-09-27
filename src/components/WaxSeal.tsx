@@ -151,7 +151,6 @@ export function WaxSeal({ className = '', glint = true }: { className?: string; 
           </text>
         </g>
       </svg>
-      {glint && <span className="wax-seal__glint" aria-hidden="true" />}
     </div>
   );
 }

@@ -8,8 +8,7 @@ import { computeGeo, readViewport } from './lib/geometry';
 
 /** Unboxing choreography: relaxed, elegant timing */
 const NEXT: Partial<Record<Stage, Stage>> = { opening: 'rising', rising: 'handoff', handoff: 'settle', settle: 'done' };
-const DURATION: Partial<Record<Stage, number>> = { opening: 2200, rising: 1200, handoff: 900, settle: 450 };
-const DURATION_REDUCED: Partial<Record<Stage, number>> = { opening: 350, rising: 350, handoff: 600, settle: 350 };
+const DURATION: Partial<Record<Stage, number>> = { opening: 4000, rising: 1400, handoff: 400, settle: 150 };
 
 export default function App() {
   const [stage, setStage] = useState<Stage>('sealed');
@@ -27,8 +26,8 @@ export default function App() {
     const reveal = () => {
       if (alive) setReady(true);
     };
-    const timer = window.setTimeout(reveal, 1800);
-    document.fonts?.ready.then(() => window.setTimeout(reveal, 120)).catch(reveal);
+    const timer = window.setTimeout(reveal, 400);
+    document.fonts?.ready.then(() => window.setTimeout(reveal, 100)).catch(reveal);
     return () => {
       alive = false;
       window.clearTimeout(timer);
@@ -52,8 +51,7 @@ export default function App() {
   useEffect(() => {
     const next = NEXT[stage];
     if (!next) return;
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const ms = (reduce ? DURATION_REDUCED : DURATION)[stage] ?? 1000;
+    const ms = DURATION[stage] ?? 1000;
     const timer = window.setTimeout(() => setStage(next), ms);
     return () => window.clearTimeout(timer);
   }, [stage]);

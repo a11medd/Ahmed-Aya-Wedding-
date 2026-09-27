@@ -11,6 +11,7 @@ export interface Dict {
   docTitle: string;
   toggle: { label: string; aria: string };
   invited: string;
+  heroInvite: { formal: string; script: string };
   cta: string;
   soundHint: string;
   openAria: string;
@@ -30,6 +31,10 @@ const en: Dict = {
   docTitle: 'Ahmed & Aya · The Wedding Celebration · 27.01.2027',
   toggle: { label: 'العربية', aria: 'عرض الدعوة باللغة العربية' },
   invited: 'You are cordially invited',
+  heroInvite: {
+    formal: 'You are cordially',
+    script: 'invited',
+  },
   cta: 'Click To Open',
   soundHint: 'For the full experience, kindly turn your sound on',
   openAria: 'Open the wedding invitation of Ahmed and Aya',
@@ -101,7 +106,7 @@ const en: Dict = {
     rsvpNote: 'Kindly confirm your attendance via WhatsApp',
     whatsappMessage: "Hello, I would like to confirm my attendance for Ahmed & Aya's Wedding.",
   },
-  footer: { date: 'Wednesday · 27 January 2027', credits: 'Designed with love by Ahmed Osama ♥' },
+  footer: { date: 'Wednesday · 27 January 2027', credits: 'Designed with love by Ahmed Osama' },
   music: { play: 'Play background music', mute: 'Mute background music' },
 };
 
@@ -109,6 +114,10 @@ const ar: Dict = {
   docTitle: 'أحمد & آية · حفل الزفاف · ٢٧.٠١.٢٠٢٧',
   toggle: { label: 'English', aria: 'View the invitation in English' },
   invited: 'يسعدنا دعوتكم',
+  heroInvite: {
+    formal: 'يسعدنا ويشرفنا',
+    script: 'دعوتكم',
+  },
   cta: 'اضغط لفتح الدعوة',
   soundHint: 'لتجربة أجمل، يُرجى تشغيل الصوت',
   openAria: 'افتح دعوة زفاف أحمد & آية',
@@ -179,7 +188,7 @@ const ar: Dict = {
     rsvpNote: 'يُرجى تأكيد حضوركم عبر واتساب',
     whatsappMessage: 'مرحبًا، أودّ تأكيد حضوري لحفل زفاف أحمد & آية.',
   },
-  footer: { date: 'الأربعاء · ٢٧ يناير ٢٠٢٧', credits: 'صُمم بحب بواسطة أحمد أسامة ♥' },
+  footer: { date: 'الأربعاء · ٢٧ يناير ٢٠٢٧', credits: 'صُمم بحب بواسطة أحمد أسامة' },
   music: { play: 'تشغيل الموسيقى', mute: 'كتم الموسيقى' },
 };
 
