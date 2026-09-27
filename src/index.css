@@ -2219,14 +2219,15 @@ html[lang="ar"] .rsvp-seal-label {
   z-index: 70;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  height: 44px;
-  padding: 0 16px 0 13px;
+  justify-content: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 14px;
   border-radius: 999px;
   cursor: pointer;
   direction: ltr;
   color: #f1e3bd;
-  background: rgba(64, 7, 7, 0.8);
+  background: rgba(64, 7, 7, 0.82);
   border: 1px solid rgba(233, 205, 140, 0.45);
   box-shadow:
     0 10px 26px rgba(0, 0, 0, 0.45),
@@ -2236,7 +2237,8 @@ html[lang="ar"] .rsvp-seal-label {
   transition:
     opacity 0.8s ease 0.6s,
     transform 0.8s var(--ease-soft) 0.6s,
-    border-color 0.3s ease;
+    border-color 0.3s ease,
+    background-color 0.3s ease;
   opacity: 0;
   pointer-events: none;
   transform: translate3d(0, -8px, 0);
@@ -2251,7 +2253,8 @@ html[lang="ar"] .rsvp-seal-label {
 }
 @media (hover: hover) {
   .lang-btn:hover {
-    border-color: rgba(243, 223, 166, 0.8);
+    border-color: rgba(243, 223, 166, 0.85);
+    background: rgba(80, 10, 10, 0.88);
   }
 }
 .lang-btn:focus-visible {
@@ -2262,22 +2265,31 @@ html[lang="ar"] .rsvp-seal-label {
   width: 17px;
   height: 17px;
   flex: none;
+  display: block;
   color: #f1e3bd;
 }
 .lang-btn__label {
-  font-family: "Cinzel", serif;
-  font-size: 11.5px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   line-height: 1;
-  text-transform: uppercase;
+  color: #f1e3bd;
+  text-shadow: 0 0 10px rgba(241, 227, 189, 0.35);
+  user-select: none;
+}
+.lang-btn[lang="en"] .lang-btn__label {
+  font-family: var(--font-cinzel), "Cinzel", serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transform: translateY(0.5px);
 }
 .lang-btn[lang="ar"] .lang-btn__label {
-  font-family: "El Messiri", "Amiri", sans-serif;
-  font-size: 15px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Arabic", "Reem Kufi", sans-serif;
+  font-size: 15.5px;
   font-weight: 600;
-  letter-spacing: 0;
-  padding-top: 2px;
+  line-height: 1;
+  transform: translateY(-0.5px);
 }
 .music {
   direction: ltr;
@@ -2869,19 +2881,23 @@ html, body {
 
 @media (max-width: 420px) {
   .lang-btn {
-    height: 38px;
-    padding: 0 12px 0 9px;
-    gap: 5px;
+    height: 36px;
+    padding: 0 11px;
+    gap: 6px;
   }
   .lang-btn__icon {
     width: 15px;
     height: 15px;
   }
-  .lang-btn__label {
-    font-size: 10.5px;
+  .lang-btn[lang="en"] .lang-btn__label {
+    font-size: 12px;
+    font-weight: 600;
+    transform: translateY(0.5px);
   }
-  html[lang="ar"] .lang-btn__label {
-    font-size: 13px;
+  .lang-btn[lang="ar"] .lang-btn__label {
+    font-size: 14px;
+    font-weight: 600;
+    transform: translateY(-0.5px);
   }
   .music-btn {
     width: 38px;

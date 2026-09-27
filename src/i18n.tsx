@@ -29,7 +29,7 @@ export interface Dict {
 
 const en: Dict = {
   docTitle: 'Ahmed & Aya · The Wedding Celebration · 27.01.2027',
-  toggle: { label: 'العربية', aria: 'عرض الدعوة باللغة العربية' },
+  toggle: { label: 'ع', aria: 'عرض الدعوة باللغة العربية' },
   invited: 'You are cordially invited',
   heroInvite: {
     formal: 'You are cordially',
@@ -112,7 +112,7 @@ const en: Dict = {
 
 const ar: Dict = {
   docTitle: 'أحمد & آية · حفل الزفاف · ٢٧.٠١.٢٠٢٧',
-  toggle: { label: 'English', aria: 'View the invitation in English' },
+  toggle: { label: 'E', aria: 'View the invitation in English' },
   invited: 'يسعدنا دعوتكم',
   heroInvite: {
     formal: 'يسعدنا ويشرفنا',
@@ -193,7 +193,7 @@ const ar: Dict = {
 };
 
 const DICTS: Record<Lang, Dict> = { en, ar };
-const STORAGE_KEY = 'aa-invite-lang';
+const STORAGE_KEY = 'aa-invite-lang-v2';
 const AR_DIGITS = '٠١٢٣٤٥٦٧٨٩';
 
 function initialLang(): Lang {
@@ -205,7 +205,7 @@ function initialLang(): Lang {
   } catch {
     /* private mode */
   }
-  return 'ar';
+  return 'en';
 }
 
 interface LangValue {
@@ -215,6 +215,7 @@ interface LangValue {
   /** Localise digits (Arabic-Indic numerals in Arabic) */
   num: (value: string | number) => string;
   toggle: () => void;
+  switchLang: (target: Lang) => void;
 }
 
 const LangContext = createContext<LangValue | null>(null);
@@ -235,23 +236,29 @@ export function LangProvider({ children }: { children: ReactNode }) {
     }
   }, [lang]);
 
+  const switchLang = useCallback(
+    (next: Lang) => {
+      if (busy.current || next === lang) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        setLang(next);
+        return;
+      }
+      // soft cross-fade: fade the text out, swap language, fade back in
+      busy.current = true;
+      const html = document.documentElement;
+      html.classList.add('is-lang-switching');
+      window.setTimeout(() => setLang(next), 260);
+      window.setTimeout(() => {
+        html.classList.remove('is-lang-switching');
+        busy.current = false;
+      }, 330);
+    },
+    [lang],
+  );
+
   const toggle = useCallback(() => {
-    if (busy.current) return;
-    const next: Lang = lang === 'en' ? 'ar' : 'en';
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setLang(next);
-      return;
-    }
-    // soft cross-fade: fade the text out, swap language, fade back in
-    busy.current = true;
-    const html = document.documentElement;
-    html.classList.add('is-lang-switching');
-    window.setTimeout(() => setLang(next), 260);
-    window.setTimeout(() => {
-      html.classList.remove('is-lang-switching');
-      busy.current = false;
-    }, 330);
-  }, [lang]);
+    switchLang(lang === 'en' ? 'ar' : 'en');
+  }, [lang, switchLang]);
 
   const value = useMemo<LangValue>(
     () => ({
@@ -260,8 +267,9 @@ export function LangProvider({ children }: { children: ReactNode }) {
       t: DICTS[lang],
       num: (v) => (lang === 'ar' ? String(v).replace(/\d/g, (d) => AR_DIGITS[Number(d)]) : String(v)),
       toggle,
+      switchLang,
     }),
-    [lang, toggle],
+    [lang, toggle, switchLang],
   );
 
   return <LangContext.Provider value={value}>{children}</LangContext.Provider>;
