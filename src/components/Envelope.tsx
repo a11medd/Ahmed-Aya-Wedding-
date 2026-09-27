@@ -19,10 +19,11 @@ interface SceneProps {
 }
 
 export function EnvelopeScene({ stage, geo, ready, onOpen, targetRef }: SceneProps) {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const envRef = useRef<HTMLDivElement>(null);
   const [handoff, setHandoff] = useState<{ x: number; y: number } | null>(null);
-  const { W, H, seal, sealTop, ctaTop, cardW, innerW, k, cardLeft, cardTop, rise, shift, drop } = geo;
+  const late = stage === 'handoff' || stage === 'settle';
+  const { W, H, seal, sealTop, ctaTop, cardW, drop } = geo;
 
   // Measure where the real card sits on the page early to avoid mid-animation layout thrashing
   useLayoutEffect(() => {
@@ -33,7 +34,7 @@ export function EnvelopeScene({ stage, geo, ready, onOpen, targetRef }: ScenePro
       const e = env.getBoundingClientRect();
       const t = target.getBoundingClientRect();
       if (t.width > 0 && e.width > 0) {
-        setHandoff({ x: t.left - e.left, y: t.top - e.top });
+        setHandoff({ x: Math.round(t.left - e.left), y: Math.round(t.top - e.top) });
       }
     };
     measure();
@@ -42,14 +43,22 @@ export function EnvelopeScene({ stage, geo, ready, onOpen, targetRef }: ScenePro
     return () => window.removeEventListener('resize', handleResize);
   }, [targetRef, stage]);
 
-  const late = stage === 'handoff' || stage === 'settle';
-  let cardTransform = `translate3d(${cardLeft}px, ${cardTop}px, 0) scale(${k})`;
-  if (stage === 'rising' || (late && !handoff)) {
-    cardTransform = `translate3d(${cardLeft}px, ${cardTop - rise}px, 0) scale(${k * 1.02})`;
-  }
-  if (late && handoff) {
-    cardTransform = `translate3d(${handoff.x}px, ${handoff.y}px, 0) scale(1)`;
-  }
+  const vh = typeof window !== 'undefined' ? (window.visualViewport?.height || window.innerHeight) : 900;
+  const isPreRise = stage === 'sealed' || stage === 'opening';
+
+  // Target coordinates match the natural page-card position in scale(1)
+  const fallbackX = Math.round((W - cardW) / 2);
+  const fallbackY = Math.max(16, Math.round(110 - (vh - H) / 2));
+  const targetX = handoff && handoff.x > 0 ? handoff.x : fallbackX;
+  const targetY = handoff && handoff.y > 0 ? handoff.y : fallbackY;
+  // Position card just below the bottom of the screen inside envelope coordinates
+  const envTop = (vh - H) / 2;
+  const offscreenY = Math.max(H + 40, Math.round(vh - envTop + 40));
+
+  // The card rises in its natural size (scale(1)) directly from bottom offscreen to its final place
+  const cardTransform = isPreRise
+    ? `translate3d(${targetX}px, ${offscreenY}px, 0)`
+    : `translate3d(${targetX}px, ${targetY}px, 0)`;
 
   const vars = {
     '--w': `${W}px`,
@@ -57,7 +66,7 @@ export function EnvelopeScene({ stage, geo, ready, onOpen, targetRef }: ScenePro
     '--seal': `${seal}px`,
     '--seal-top': `${sealTop}px`,
     '--cta-top': `${ctaTop}px`,
-    '--shift': `${shift}px`,
+    '--shift': '0px',
     '--drop': `${drop}px`,
   } as CSSProperties;
 
@@ -70,6 +79,12 @@ export function EnvelopeScene({ stage, geo, ready, onOpen, targetRef }: ScenePro
 
   return (
     <div className={`scene stage-${stage}${ready ? ' is-ready' : ''}`} style={vars} dir="ltr">
+      {/* "You are cordially invited" announcement */}
+      <div className="invited-hero" aria-hidden={stage === 'sealed'} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+        <div className="invited-hero__formal">{t.heroInvite.formal}</div>
+        <div className="invited-hero__script">{t.heroInvite.script}</div>
+      </div>
+
       <div className="env-float">
         <div className="env-shift">
           <div
@@ -106,15 +121,14 @@ export function EnvelopeScene({ stage, geo, ready, onOpen, targetRef }: ScenePro
                   transform: cardTransform,
                   width: cardW,
                   transformOrigin: 'top left',
-                  transition:
-                    stage === 'opening'
-                      ? 'opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1)'
-                      : 'transform 1.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease',
+                  transition: 'transform 1.4s cubic-bezier(0.22, 1, 0.36, 1)',
                   position: 'absolute',
                   top: 0,
                   left: 0,
-                  opacity: stage === 'sealed' ? 0 : 1,
-                  willChange: 'transform, opacity',
+                  opacity: isPreRise ? 0 : 1,
+                  willChange: 'transform',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
                   pointerEvents: late ? 'auto' : 'none',
                 }}
                 aria-hidden="true"

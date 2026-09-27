@@ -10,7 +10,7 @@ interface TornDividerProps {
  * Generates an organic, hyper-realistic hand-torn paper edge path (deckled edge).
  * Combines gentle macro draping, medium tear angles, and micro-jagged paper fiber teeth.
  */
-function generateTornPaths(seedNumber: number, width = 1200, height = 64) {
+function generateTornPaths(seedNumber: number, width = 1200, height = 140) {
   const rnd = mulberry32(seedNumber);
   const numSteps = 160;
   const dx = width / numSteps;
@@ -88,14 +88,14 @@ export function TornDivider({ variant = 1, className = '' }: TornDividerProps) {
   const gradId = useSafeId(`torn-fiber-${variant}`);
   const seed = SEEDS[variant] ?? SEEDS[1];
   const { mainPath, fiberPath, rimLine } = useMemo(
-    () => generateTornPaths(seed, 1200, 64),
+    () => generateTornPaths(seed, 1200, 140),
     [seed]
   );
 
   return (
     <div className={`torn-divider ${className}`} aria-hidden="true">
       <svg
-        viewBox="0 0 1200 64"
+        viewBox="0 -14 1200 78"
         preserveAspectRatio="none"
         xmlns="http://www.w3.org/2000/svg"
       >

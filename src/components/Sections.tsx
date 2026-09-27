@@ -337,7 +337,10 @@ export function Footer() {
       <TornDivider variant={2} />
       <Reveal>
         <div className="footer-credits-section">
-          <p className="footer-credits">{t.footer.credits}</p>
+          <p className="footer-credits">
+            <span>{t.footer.credits}</span>
+            <span className="footer-credits__heart" aria-hidden="true">&#x2665;&#xFE0E;</span>
+          </p>
           <div className="footer-social">
             <a href="https://www.instagram.com/a11med.osama?stkn=ZXA5anF3cTI4c3Bl&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <InstagramIcon className="footer-social__icon" />
